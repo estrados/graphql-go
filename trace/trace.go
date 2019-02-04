@@ -4,9 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/estrados/graphql-go/exposed/schema"
-
 	"github.com/estrados/graphql-go/errors"
+	"github.com/estrados/graphql-go/exposed/schema"
 	"github.com/estrados/graphql-go/introspection"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -52,7 +51,7 @@ func (OpenTracingTracer) TraceField(ctx context.Context, label, typeName, fieldN
 	if trivial {
 		return ctx, noop
 	}
-
+	ctx = context.WithValue(ctx, "field", f)
 	span, spanCtx := opentracing.StartSpanFromContext(ctx, label)
 	span.SetTag("graphql.type", typeName)
 	span.SetTag("graphql.field", fieldName)
