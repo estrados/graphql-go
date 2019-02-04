@@ -155,7 +155,7 @@ func execFieldSelection(ctx context.Context, r *Request, f *fieldToExec, path *p
 	var result reflect.Value
 	var err *errors.QueryError
 
-	traceCtx, finish := r.Tracer.TraceField(ctx, f.field.TraceLabel, f.field.TypeName, f.field.Name, !f.field.Async, f.field.Args)
+	traceCtx, finish := r.Tracer.TraceField(ctx, f.field.TraceLabel, f.field.TypeName, f.field.Name, !f.field.Async, f.field.Args, f.field.Field.Field)
 	defer func() {
 		finish(err)
 	}()

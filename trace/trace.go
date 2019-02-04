@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/estrados/graphql-go/exposed/schema"
+
 	"github.com/estrados/graphql-go/errors"
 	"github.com/estrados/graphql-go/introspection"
 	opentracing "github.com/opentracing/opentracing-go"
@@ -16,7 +18,7 @@ type TraceFieldFinishFunc func(*errors.QueryError)
 
 type Tracer interface {
 	TraceQuery(ctx context.Context, queryString string, operationName string, variables map[string]interface{}, varTypes map[string]*introspection.Type) (context.Context, TraceQueryFinishFunc)
-	TraceField(ctx context.Context, label, typeName, fieldName string, trivial bool, args map[string]interface{}) (context.Context, TraceFieldFinishFunc)
+	TraceField(ctx context.Context, label, typeName, fieldName string, trivial bool, args map[string]interface{}, f schema.Field) (context.Context, TraceFieldFinishFunc)
 }
 
 type OpenTracingTracer struct{}
@@ -46,7 +48,7 @@ func (OpenTracingTracer) TraceQuery(ctx context.Context, queryString string, ope
 	}
 }
 
-func (OpenTracingTracer) TraceField(ctx context.Context, label, typeName, fieldName string, trivial bool, args map[string]interface{}) (context.Context, TraceFieldFinishFunc) {
+func (OpenTracingTracer) TraceField(ctx context.Context, label, typeName, fieldName string, trivial bool, args map[string]interface{}, f schema.Field) (context.Context, TraceFieldFinishFunc) {
 	if trivial {
 		return ctx, noop
 	}
