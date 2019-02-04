@@ -4,14 +4,14 @@ import (
 	"context"
 	"errors"
 
-	qerrors "github.com/graph-gophers/graphql-go/errors"
-	"github.com/graph-gophers/graphql-go/internal/common"
-	"github.com/graph-gophers/graphql-go/internal/exec"
-	"github.com/graph-gophers/graphql-go/internal/exec/resolvable"
-	"github.com/graph-gophers/graphql-go/internal/exec/selected"
-	"github.com/graph-gophers/graphql-go/internal/query"
-	"github.com/graph-gophers/graphql-go/internal/validation"
-	"github.com/graph-gophers/graphql-go/introspection"
+	qerrors "github.com/estrados/graphql-go/errors"
+	"github.com/estrados/graphql-go/exposed/common"
+	"github.com/estrados/graphql-go/exposed/exec"
+	"github.com/estrados/graphql-go/exposed/exec/resolvable"
+	"github.com/estrados/graphql-go/exposed/exec/selected"
+	"github.com/estrados/graphql-go/exposed/query"
+	"github.com/estrados/graphql-go/exposed/validation"
+	"github.com/estrados/graphql-go/introspection"
 )
 
 // Subscribe returns a response channel for the given subscription with the schema's
